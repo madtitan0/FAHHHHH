@@ -32,11 +32,23 @@ document.addEventListener('DOMContentLoaded', () => {
   hamburger?.addEventListener('click', () => {
     hamburger.classList.toggle('open');
     navLinks?.classList.toggle('open');
+    document.body.style.overflow = navLinks?.classList.contains('open') ? 'hidden' : '';
   });
+  // Close menu on regular link click
   navLinks?.querySelectorAll('.nav-link:not([data-dropdown])').forEach(link => {
     link.addEventListener('click', () => {
       hamburger?.classList.remove('open');
       navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+  // Mobile: toggle dropdowns on tap instead of hover
+  navLinks?.querySelectorAll('[data-dropdown]').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const dropdown = trigger.nextElementSibling;
+      if (window.innerWidth <= 768 && dropdown) {
+        dropdown.classList.toggle('mobile-open');
+      }
     });
   });
 
