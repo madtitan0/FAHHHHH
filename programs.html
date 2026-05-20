@@ -3,263 +3,535 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Programs | FA Finance Academy Hosur</title>
+  <title>Programs | FA Finance Academy</title>
+  <meta name="description" content="Explore FA's 26 finance programs across 9 learning modes — CA Foundation, Professional Development, Custom Coaching and more in Hosur." />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    .modes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 16px; max-width: 1100px; margin: 0 auto 60px; }
-    .mode-card { padding: 24px 20px; background: var(--white); border-radius: 14px; border: 2px solid #e5e7eb; text-align: center; transition: var(--trans); cursor: default; }
-    .mode-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--shadow); }
-    .mode-icon { width: 52px; height: 52px; border-radius: 12px; background: linear-gradient(135deg, var(--navy), var(--navy2)); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--gold2); margin: 0 auto 12px; }
-    .mode-card h4 { font-size: .92rem; color: var(--navy); }
-    .programs-full { max-width: 1280px; margin: 0 auto; }
-    .program-group { margin-bottom: 56px; }
-    .program-group-title { font-size: 1.4rem; color: var(--navy); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
-    .program-group-title::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); border-radius: 2px; }
-    .programs-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 2px 20px rgba(0,0,0,.06); }
-    .programs-table th { background: var(--navy); color: var(--white); padding: 14px 20px; text-align: left; font-size: .85rem; font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: .04em; }
-    .programs-table td { padding: 14px 20px; font-size: .88rem; color: var(--dark); border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
-    .programs-table tr:last-child td { border-bottom: none; }
-    .programs-table tr:hover td { background: var(--light); }
-    .prog-badge { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: .72rem; font-weight: 600; }
-    .badge-ca { background: rgba(26,35,126,.1); color: #1a237e; }
-    .badge-pro { background: rgba(0,77,64,.1); color: #004d40; }
-    .badge-custom { background: rgba(74,20,140,.1); color: #4a148c; }
-    .badge-level1 { background: rgba(201,168,76,.15); color: #92610a; }
-    .badge-level2 { background: rgba(21,101,192,.12); color: #1565c0; }
+    /* ── Page Hero ── */
+    .page-hero {
+      min-height: 380px;
+      display: flex;
+      align-items: flex-end;
+      padding: 140px 0 80px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 20% 50%, rgba(201,168,76,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero-label { margin-bottom: 16px; }
+    .page-hero-title {
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.0;
+      margin-bottom: 20px;
+    }
+    .page-hero-title em { color: var(--gold); font-style: italic; }
+    .page-hero-sub { font-size: 1rem; color: var(--muted); max-width: 500px; line-height: 1.75; }
+
+    /* ── Stats Bar (page-level) ── */
+    .page-stats-bar {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-stats-bar .stats-grid { grid-template-columns: repeat(4, 1fr); }
+
+    /* ── Modes Grid ── */
+    .modes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .mode-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 36px 24px;
+      text-align: center;
+      transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s, border-color 0.3s, background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .mode-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--gold-glow), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+    .mode-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lift);
+      border-color: rgba(201,168,76,.25);
+    }
+    .mode-card:hover::before { opacity: 1; }
+    .mode-icon {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: block;
+      transition: transform 0.4s var(--ease-out-expo);
+    }
+    .mode-card:hover .mode-icon { transform: scale(1.15) rotate(-5deg); }
+    .mode-name {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .mode-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ── FAQ Wrapper ── */
+    .faq-wrap { max-width: 800px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .modes-grid { grid-template-columns: repeat(2, 1fr); }
+      .page-stats-bar .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .page-stats-bar .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+    @media (max-width: 768px) {
+      .modes-grid { grid-template-columns: 1fr; gap: 14px; }
+    }
   </style>
 </head>
 <body>
-<div id="loader"><div class="loader-ring"></div></div>
 
-<nav class="navbar">
+<!-- Custom Cursor -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-logo">F · A</div>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- Navbar -->
+<nav id="navbar">
   <a href="index.html" class="nav-logo">
-    <div class="nav-logo-icon">FA</div>
-    <div><span>Finance Academy</span><small>Hosur, Tamil Nadu</small></div>
+    <div class="nav-logo-mark">FA</div>
+    Finance <span>Academy</span>
   </a>
-  <ul class="nav-links">
-    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-    <li class="nav-item">
-      <span class="nav-link" data-dropdown>We Are F.A <i class="fas fa-chevron-down"></i></span>
-      <div class="dropdown">
-        <a href="about.html#history">History</a>
-        <a href="about.html#advisors">Council of Advisors</a>
-        <a href="about.html#tutors">Our Tutors</a>
-        <a href="about.html#stories">Good News Stories</a>
-      </div>
-    </li>
-    <li class="nav-item"><a href="programs.html" class="nav-link active">Programs</a></li>
-    <li class="nav-item"><a href="store.html" class="nav-link">Store</a></li>
-    <li class="nav-item">
-      <span class="nav-link" data-dropdown>Lounge <i class="fas fa-chevron-down"></i></span>
-      <div class="dropdown">
-        <a href="lounge.html#news">News &amp; Events</a>
-        <a href="lounge.html#wof">Wall of Fame</a>
-        <a href="lounge.html#articles">Articles</a>
-      </div>
-    </li>
-    <li class="nav-item"><a href="contact.html" class="nav-link nav-cta">Contact Us</a></li>
-  </ul>
-  <div class="hamburger"><span></span><span></span><span></span></div>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="programs.html" class="nav-link active">Programs</a>
+    <a href="store.html" class="nav-link">Store</a>
+    <a href="lounge.html" class="nav-link">Lounge</a>
+  </div>
+  <div class="nav-cta">
+    <a href="contact.html" class="btn btn-outline">Enquire</a>
+    <a href="contact.html" class="btn btn-primary btn-magnetic">Enroll Now</a>
+  </div>
+  <button class="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<section class="page-hero">
-  <div class="page-hero-content">
-    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span>Programs</div>
-    <h1>Our <span style="color:var(--gold2)">Programs</span></h1>
-    <p>26 expertly designed finance programs across 9 learning modes — built for every learner at every stage of their finance journey.</p>
+<div id="nav-overlay">
+  <div class="nav-overlay-links">
+    <a href="index.html" class="nav-overlay-link">Home</a>
+    <a href="about.html" class="nav-overlay-link">About</a>
+    <a href="programs.html" class="nav-overlay-link">Programs</a>
+    <a href="store.html" class="nav-overlay-link">Store</a>
+    <a href="lounge.html" class="nav-overlay-link">Lounge</a>
+    <a href="contact.html" class="nav-overlay-link">Contact</a>
   </div>
-</section>
+</div>
 
-<!-- Modes -->
-<section class="section" style="background:var(--light); padding-bottom:40px;">
-  <div class="section-center">
-    <div class="section-tag">Learning Modes</div>
-    <h2 class="section-title">9 Flexible Learning Modes</h2>
-    <p class="section-subtitle">Learn the way that fits your lifestyle — classroom, online, hybrid, crash course and more.</p>
+<!-- ════════════════════════════════════
+     PAGE HERO
+     ════════════════════════════════════ -->
+<header class="page-hero">
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="label page-hero-label">Programs</div>
+    <h1 class="page-hero-title">26 Finance Programs,<br><em>9 Ways to Learn</em></h1>
+    <p class="page-hero-sub">Every program at FA is built around one goal: your success in finance — whether you're a first-time learner or a seasoned professional.</p>
   </div>
-  <div class="modes-grid">
-    <div class="mode-card" data-aos="fade-up" data-aos-delay="0"><div class="mode-icon"><i class="fas fa-school"></i></div><h4>Regular Classroom</h4></div>
-    <div class="mode-card" data-aos="fade-up" data-aos-delay="60"><div class="mode-icon"><i class="fas fa-laptop"></i></div><h4>Online Live</h4></div>
-    <div class="mode-card" data-aos="fade-up" data-aos-delay="120"><div class="mode-icon"><i class="fas fa-video"></i></div><h4>Recorded Videos</h4></div>
-    <div class="mode-card" data-aos="fade-up" data-aos-delay="180"><div class="mode-icon"><i class="fas fa-user"></i></div><h4>One-on-One</h4></div>
-    <div class="mode-card" data-aos="fade-up" data-aos-delay="240"><div class="mode-icon"><i class="fas fa-rocket"></i></div><h4>Crash Course</h4></div>
-    <div class="mode-card" data-aos="fade-up" data-aos-delay="300"><div class="mode-icon"><i class="fas fa-layer-group"></i></div><h4>Hybrid Mode</h4></div>
-    <div class="mode-card" data-aos="fade-up" data-aos-delay="360"><div class="mode-icon"><i class="fas fa-home"></i></div><h4>Home Tuition</h4></div>
-    <div class="mode-card" data-aos="fade-up" data-aos-delay="420"><div class="mode-icon"><i class="fas fa-book-reader"></i></div><h4>Self-Study Kit</h4></div>
-    <div class="mode-card" data-aos="fade-up" data-aos-delay="480"><div class="mode-icon"><i class="fas fa-users"></i></div><h4>Group Coaching</h4></div>
-  </div>
-</section>
+</header>
 
-<!-- Stats -->
-<section class="stats-strip">
-  <div class="stats-grid">
-    <div class="stat-item" data-aos="fade-up"><div class="stat-num"><span data-count="26">0</span></div><div class="stat-label">Total Programs</div><div class="divider"></div></div>
-    <div class="stat-item" data-aos="fade-up" data-aos-delay="100"><div class="stat-num"><span data-count="9">0</span></div><div class="stat-label">Learning Modes</div><div class="divider"></div></div>
-    <div class="stat-item" data-aos="fade-up" data-aos-delay="200"><div class="stat-num"><span data-count="10000">0</span><span class="stat-suffix">+</span></div><div class="stat-label">Question Bank</div><div class="divider"></div></div>
-    <div class="stat-item" data-aos="fade-up" data-aos-delay="300"><div class="stat-num"><span data-count="100">0</span><span class="stat-suffix">+</span></div><div class="stat-label">Winners Produced</div><div class="divider"></div></div>
+<!-- ════════════════════════════════════
+     STATS BAR
+     ════════════════════════════════════ -->
+<div class="page-stats-bar stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number">26</span>
+        <span class="stat-label">Programs Offered</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">9</span>
+        <span class="stat-label">Learning Modes</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number"><span data-count="10000">0</span><span class="stat-suffix">+</span></span>
+        <span class="stat-label">Questions in Bank</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number"><span data-count="100">0</span><span class="stat-suffix">+</span></span>
+        <span class="stat-label">Winners &amp; Rank Holders</span>
+      </div>
+    </div>
   </div>
-</section>
+</div>
 
-<!-- All Programs -->
-<section class="section" style="background:var(--white);">
-  <div class="section-center">
-    <div class="section-tag">All Courses</div>
-    <h2 class="section-title">Complete Program Directory</h2>
-    <p class="section-subtitle">Browse all 26 programs offered at FA. Each is available across multiple learning modes — contact us to find the best fit for you.</p>
-  </div>
+<!-- ════════════════════════════════════
+     LEARNING MODES
+     ════════════════════════════════════ -->
+<section class="section bg-surface">
+  <div class="container">
+    <div class="section-header">
+      <div class="label">How We Teach</div>
+      <h2 class="section-title">9 Ways to<br><em class="text-gold italic">Learn at FA</em></h2>
+      <p class="section-sub">Education that fits your life — not the other way around. Choose from 9 flexible learning modes designed for every schedule and learning style.</p>
+    </div>
+    <div class="modes-grid">
 
-  <div class="courses-filter" style="margin-bottom:40px;">
-    <button class="filter-btn active" data-filter="all">All Programs</button>
-    <button class="filter-btn" data-filter="ca">CA Foundation</button>
-    <button class="filter-btn" data-filter="pro">Professional</button>
-    <button class="filter-btn" data-filter="custom">Custom</button>
-  </div>
+      <div class="mode-card">
+        <i class="fas fa-school mode-icon"></i>
+        <div class="mode-name">Regular Classroom</div>
+        <p class="mode-desc">Traditional face-to-face instruction in our state-of-the-art Hosur campus. Structured schedules, peer learning, and direct tutor access.</p>
+      </div>
 
-  <div class="courses-grid" style="max-width:1280px; margin:0 auto;">
-    <!-- CA Foundation -->
-    <div class="course-card" data-category="ca" data-aos="fade-up" data-aos-delay="0" style="display:flex;flex-direction:column;">
-      <div class="course-card-header bg1"><div class="course-card-icon"><i class="fas fa-calculator"></i></div><span class="course-card-level">CA Foundation</span></div>
-      <div class="course-card-body" style="flex:1;display:flex;flex-direction:column;">
-        <h3>Paper 1 – Accounting</h3>
-        <p>Principles &amp; Practice of Accounting. Build a rock-solid accounting foundation for the CA pathway.</p>
-        <div class="course-meta"><span><i class="fas fa-clock"></i> 6 Months</span><span><i class="fas fa-book"></i> 9 Modes</span></div>
-        <div class="course-enroll" style="margin-top:auto;"><span class="course-price">Enquire</span><button class="enroll-btn" onclick="location.href='contact.html'">Enroll</button></div>
+      <div class="mode-card">
+        <i class="fas fa-laptop mode-icon"></i>
+        <div class="mode-name">Online Live</div>
+        <p class="mode-desc">Live interactive sessions streamed to your device. Attend from anywhere with the same real-time engagement as a classroom.</p>
       </div>
-    </div>
-    <div class="course-card" data-category="ca" data-aos="fade-up" data-aos-delay="60" style="display:flex;flex-direction:column;">
-      <div class="course-card-header bg2"><div class="course-card-icon"><i class="fas fa-balance-scale"></i></div><span class="course-card-level">CA Foundation</span></div>
-      <div class="course-card-body" style="flex:1;display:flex;flex-direction:column;">
-        <h3>Paper 2 – Business Laws</h3>
-        <p>Business Laws and Business Correspondence. Navigate the legal landscape of the finance world.</p>
-        <div class="course-meta"><span><i class="fas fa-clock"></i> 6 Months</span><span><i class="fas fa-book"></i> 9 Modes</span></div>
-        <div class="course-enroll" style="margin-top:auto;"><span class="course-price">Enquire</span><button class="enroll-btn" onclick="location.href='contact.html'">Enroll</button></div>
+
+      <div class="mode-card">
+        <i class="fas fa-video mode-icon"></i>
+        <div class="mode-name">Recorded Videos</div>
+        <p class="mode-desc">High-quality recorded lectures available on demand. Watch, rewind and master topics at your own pace, anytime.</p>
       </div>
-    </div>
-    <div class="course-card" data-category="ca" data-aos="fade-up" data-aos-delay="120" style="display:flex;flex-direction:column;">
-      <div class="course-card-header bg3"><div class="course-card-icon"><i class="fas fa-chart-pie"></i></div><span class="course-card-level">CA Foundation</span></div>
-      <div class="course-card-body" style="flex:1;display:flex;flex-direction:column;">
-        <h3>Paper 3 – Maths &amp; Stats</h3>
-        <p>Business Mathematics, Logical Reasoning and Statistics. Sharpen quantitative thinking.</p>
-        <div class="course-meta"><span><i class="fas fa-clock"></i> 6 Months</span><span><i class="fas fa-book"></i> 9 Modes</span></div>
-        <div class="course-enroll" style="margin-top:auto;"><span class="course-price">Enquire</span><button class="enroll-btn" onclick="location.href='contact.html'">Enroll</button></div>
+
+      <div class="mode-card">
+        <i class="fas fa-user mode-icon"></i>
+        <div class="mode-name">One-on-One</div>
+        <p class="mode-desc">Exclusive personalised sessions with a dedicated tutor. Tailored entirely to your pace, goals and areas of focus.</p>
       </div>
-    </div>
-    <div class="course-card" data-category="ca" data-aos="fade-up" data-aos-delay="180" style="display:flex;flex-direction:column;">
-      <div class="course-card-header bg4"><div class="course-card-icon"><i class="fas fa-landmark"></i></div><span class="course-card-level">CA Foundation</span></div>
-      <div class="course-card-body" style="flex:1;display:flex;flex-direction:column;">
-        <h3>Paper 4 – Economics</h3>
-        <p>Business Economics and Commercial Knowledge. Understand markets, demand and macro concepts.</p>
-        <div class="course-meta"><span><i class="fas fa-clock"></i> 6 Months</span><span><i class="fas fa-book"></i> 9 Modes</span></div>
-        <div class="course-enroll" style="margin-top:auto;"><span class="course-price">Enquire</span><button class="enroll-btn" onclick="location.href='contact.html'">Enroll</button></div>
+
+      <div class="mode-card">
+        <i class="fas fa-rocket mode-icon"></i>
+        <div class="mode-name">Crash Course</div>
+        <p class="mode-desc">Intensive revision programs designed for exam-readiness. Cover the full syllabus efficiently in a condensed, high-impact format.</p>
       </div>
-    </div>
-    <div class="course-card" data-category="ca" data-aos="fade-up" data-aos-delay="0" style="display:flex;flex-direction:column;">
-      <div class="course-card-header bg5"><div class="course-card-icon"><i class="fas fa-layer-group"></i></div><span class="course-card-level">CA Foundation</span></div>
-      <div class="course-card-body" style="flex:1;display:flex;flex-direction:column;">
-        <h3>CA Foundation Level 1</h3>
-        <p>Comprehensive Level 1 bundle — covers all four papers with integrated revision and mock tests.</p>
-        <div class="course-meta"><span><i class="fas fa-clock"></i> 8 Months</span><span><i class="fas fa-book"></i> 9 Modes</span></div>
-        <div class="course-enroll" style="margin-top:auto;"><span class="course-price">Enquire</span><button class="enroll-btn" onclick="location.href='contact.html'">Enroll</button></div>
+
+      <div class="mode-card">
+        <i class="fas fa-layer-group mode-icon"></i>
+        <div class="mode-name">Hybrid Mode</div>
+        <p class="mode-desc">The best of classroom and online learning combined. Attend in-person when you can; switch to online when you need flexibility.</p>
       </div>
-    </div>
-    <div class="course-card" data-category="ca" data-aos="fade-up" data-aos-delay="60" style="display:flex;flex-direction:column;">
-      <div class="course-card-header bg6"><div class="course-card-icon"><i class="fas fa-arrow-up"></i></div><span class="course-card-level">CA Foundation</span></div>
-      <div class="course-card-body" style="flex:1;display:flex;flex-direction:column;">
-        <h3>CA Foundation Level 2</h3>
-        <p>Advanced Level 2 coaching — intensive preparation focused on scoring high and targeting ranks.</p>
-        <div class="course-meta"><span><i class="fas fa-clock"></i> 6 Months</span><span><i class="fas fa-book"></i> 9 Modes</span></div>
-        <div class="course-enroll" style="margin-top:auto;"><span class="course-price">Enquire</span><button class="enroll-btn" onclick="location.href='contact.html'">Enroll</button></div>
+
+      <div class="mode-card">
+        <i class="fas fa-home mode-icon"></i>
+        <div class="mode-name">Home Tuition</div>
+        <p class="mode-desc">FA tutors come to you. Ideal for students who prefer learning in their own environment with maximum comfort and focus.</p>
       </div>
-    </div>
-    <div class="course-card" data-category="pro" data-aos="fade-up" data-aos-delay="0" style="display:flex;flex-direction:column;">
-      <div class="course-card-header bg1"><div class="course-card-icon"><i class="fas fa-briefcase"></i></div><span class="course-card-level">Professional</span></div>
-      <div class="course-card-body" style="flex:1;display:flex;flex-direction:column;">
-        <h3>Professional Development</h3>
-        <p>Designed for working professionals looking to upskill, certify and advance in the finance industry.</p>
-        <div class="course-meta"><span><i class="fas fa-clock"></i> Flexible</span><span><i class="fas fa-book"></i> 9 Modes</span></div>
-        <div class="course-enroll" style="margin-top:auto;"><span class="course-price">Enquire</span><button class="enroll-btn" onclick="location.href='contact.html'">Enroll</button></div>
+
+      <div class="mode-card">
+        <i class="fas fa-book-reader mode-icon"></i>
+        <div class="mode-name">Self-Study Kit</div>
+        <p class="mode-desc">FA's comprehensive study kit — books, question banks and guides — delivered to your door for self-paced independent study.</p>
       </div>
-    </div>
-    <div class="course-card" data-category="pro" data-aos="fade-up" data-aos-delay="80" style="display:flex;flex-direction:column;">
-      <div class="course-card-header bg2"><div class="course-card-icon"><i class="fas fa-chart-bar"></i></div><span class="course-card-level">Professional</span></div>
-      <div class="course-card-body" style="flex:1;display:flex;flex-direction:column;">
-        <h3>Financial Analysis &amp; Reporting</h3>
-        <p>Learn to read, analyse and present financial statements with clarity and precision.</p>
-        <div class="course-meta"><span><i class="fas fa-clock"></i> 3 Months</span><span><i class="fas fa-book"></i> 9 Modes</span></div>
-        <div class="course-enroll" style="margin-top:auto;"><span class="course-price">Enquire</span><button class="enroll-btn" onclick="location.href='contact.html'">Enroll</button></div>
+
+      <div class="mode-card">
+        <i class="fas fa-users mode-icon"></i>
+        <div class="mode-name">Group Coaching</div>
+        <p class="mode-desc">Small-group coaching for collaborative learning. Study with a curated peer group for shared motivation and competitive progress.</p>
       </div>
-    </div>
-    <div class="course-card" data-category="custom" data-aos="fade-up" data-aos-delay="0" style="display:flex;flex-direction:column;">
-      <div class="course-card-header bg3"><div class="course-card-icon"><i class="fas fa-user-cog"></i></div><span class="course-card-level">Custom</span></div>
-      <div class="course-card-body" style="flex:1;display:flex;flex-direction:column;">
-        <h3>Custom Coaching Plans</h3>
-        <p>Fully personalised learning paths built around your schedule, goals and existing knowledge level.</p>
-        <div class="course-meta"><span><i class="fas fa-clock"></i> Flexible</span><span><i class="fas fa-book"></i> 1-on-1</span></div>
-        <div class="course-enroll" style="margin-top:auto;"><span class="course-price">Enquire</span><button class="enroll-btn" onclick="location.href='contact.html'">Enroll</button></div>
-      </div>
+
     </div>
   </div>
 </section>
 
-<!-- FAQ Accordion -->
-<section class="section" style="background:var(--light);">
-  <div class="section-center">
-    <div class="section-tag">FAQ</div>
-    <h2 class="section-title">Frequently Asked Questions</h2>
-    <p class="section-subtitle">Got questions about our programs? We have answers.</p>
-  </div>
-  <div class="accordion">
-    <div class="accordion-item" data-aos="fade-up">
-      <div class="accordion-header"><h4>What is the eligibility for CA Foundation?</h4><i class="fas fa-chevron-down accordion-icon"></i></div>
-      <div class="accordion-body"><p>Students who have passed Class 12 (10+2) from any recognized board are eligible to register for the CA Foundation course. Registration must be done at least 4 months before the exam. FA helps you with the full registration process.</p></div>
+<!-- ════════════════════════════════════
+     ALL PROGRAMS
+     ════════════════════════════════════ -->
+<section class="section bg-dark" id="all-programs">
+  <div class="container">
+    <div class="section-header">
+      <div class="label">Our Programs</div>
+      <h2 class="section-title">Finance Programs<br><em class="text-gold italic">Designed to Win</em></h2>
+      <p class="section-sub">26 meticulously crafted programs across 9 flexible learning modes — built for every stage of your finance journey.</p>
     </div>
-    <div class="accordion-item" data-aos="fade-up">
-      <div class="accordion-header"><h4>Which learning mode is best for a working professional?</h4><i class="fas fa-chevron-down accordion-icon"></i></div>
-      <div class="accordion-body"><p>We recommend Online Live or Recorded Video modes for working professionals. These allow you to study at your convenience without disrupting your work schedule. Our custom coaching plans are also a popular choice.</p></div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All Programs</button>
+      <button class="filter-btn" data-filter="ca">CA Foundation</button>
+      <button class="filter-btn" data-filter="pro">Professional</button>
+      <button class="filter-btn" data-filter="custom">Custom</button>
     </div>
-    <div class="accordion-item" data-aos="fade-up">
-      <div class="accordion-header"><h4>Does FA provide study material?</h4><i class="fas fa-chevron-down accordion-icon"></i></div>
-      <div class="accordion-body"><p>Yes! FA has its own publishing house that produces comprehensive, exam-focused study material for all papers. This is included in your program fee and is regularly updated to reflect the latest syllabus.</p></div>
+
+    <div class="courses-grid">
+
+      <!-- Featured card -->
+      <div class="course-card" data-category="ca">
+        <div class="card-image-wrap" style="background:linear-gradient(135deg,#1a237e,#283593);display:flex;align-items:center;justify-content:center;">
+          <i class="fas fa-calculator" style="font-size:4rem;color:rgba(255,255,255,.16);"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-category">CA Foundation</div>
+          <h3 class="card-title">Paper 1 — Principles of Accounting</h3>
+          <p class="card-desc">Build a rock-solid accounting foundation. This comprehensive course covers all aspects of Paper 1 with FA's exclusive study material and 10,000+ question bank. Produced multiple AIR holders.</p>
+          <div class="card-meta">
+            <span class="card-meta-item"><div class="card-icon"><i class="fas fa-calculator"></i></div></span>
+            <span class="card-meta-item"><i class="fas fa-clock"></i>&nbsp;6 Months</span>
+            <span class="card-meta-item"><i class="fas fa-layer-group"></i>&nbsp;9 Modes</span>
+            <a href="contact.html" class="btn btn-ghost">Enroll &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="ca">
+        <div class="card-image-wrap" style="background:linear-gradient(135deg,#004d40,#00695c);height:140px;display:flex;align-items:center;justify-content:center;">
+          <i class="fas fa-balance-scale" style="font-size:2.5rem;color:rgba(255,255,255,.16);"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-category">CA Foundation</div>
+          <h3 class="card-title">Paper 2 — Business Laws</h3>
+          <p class="card-desc">Corporate law and business correspondence simplified. Navigate regulatory frameworks with confidence.</p>
+          <div class="card-meta">
+            <span class="card-meta-item"><i class="fas fa-clock"></i>&nbsp;6 Months</span>
+            <a href="contact.html" class="btn btn-ghost">Enroll &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="ca">
+        <div class="card-image-wrap" style="background:linear-gradient(135deg,#4a148c,#6a1b9a);height:140px;display:flex;align-items:center;justify-content:center;">
+          <i class="fas fa-chart-pie" style="font-size:2.5rem;color:rgba(255,255,255,.16);"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-category">CA Foundation</div>
+          <h3 class="card-title">Paper 3 — Maths &amp; Statistics</h3>
+          <p class="card-desc">Business mathematics, logical reasoning and statistics — mastered with FA's step-by-step approach.</p>
+          <div class="card-meta">
+            <span class="card-meta-item"><i class="fas fa-clock"></i>&nbsp;6 Months</span>
+            <a href="contact.html" class="btn btn-ghost">Enroll &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="ca">
+        <div class="card-image-wrap" style="background:linear-gradient(135deg,#b71c1c,#c62828);height:140px;display:flex;align-items:center;justify-content:center;">
+          <i class="fas fa-landmark" style="font-size:2.5rem;color:rgba(255,255,255,.16);"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-category">CA Foundation</div>
+          <h3 class="card-title">Paper 4 — Economics</h3>
+          <p class="card-desc">Business economics and commercial knowledge — from macro concepts to market dynamics, simplified for exam success.</p>
+          <div class="card-meta">
+            <span class="card-meta-item"><i class="fas fa-clock"></i>&nbsp;6 Months</span>
+            <a href="contact.html" class="btn btn-ghost">Enroll &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="pro">
+        <div class="card-image-wrap" style="background:linear-gradient(135deg,#1565c0,#1976d2);height:140px;display:flex;align-items:center;justify-content:center;">
+          <i class="fas fa-briefcase" style="font-size:2.5rem;color:rgba(255,255,255,.16);"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Professional</div>
+          <h3 class="card-title">Professional Development</h3>
+          <p class="card-desc">Advanced finance coaching for working professionals — structured for career growth and professional certification.</p>
+          <div class="card-meta">
+            <span class="card-meta-item"><i class="fas fa-clock"></i>&nbsp;Flexible</span>
+            <a href="contact.html" class="btn btn-ghost">Enroll &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card" data-category="custom">
+        <div class="card-image-wrap" style="background:linear-gradient(135deg,#2e7d32,#388e3c);height:140px;display:flex;align-items:center;justify-content:center;">
+          <i class="fas fa-user-cog" style="font-size:2.5rem;color:rgba(255,255,255,.16);"></i>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Custom</div>
+          <h3 class="card-title">Custom Coaching Plans</h3>
+          <p class="card-desc">Fully personalised learning paths — built around your goals, schedule and knowledge level. 1-on-1 mentoring available.</p>
+          <div class="card-meta">
+            <span class="card-meta-item"><i class="fas fa-clock"></i>&nbsp;Flexible</span>
+            <a href="contact.html" class="btn btn-ghost">Enquire &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="accordion-item" data-aos="fade-up">
-      <div class="accordion-header"><h4>Are there mock tests and practice exams?</h4><i class="fas fa-chevron-down accordion-icon"></i></div>
-      <div class="accordion-body"><p>Absolutely. FA maintains a question bank of 10,000+ questions and conducts regular mock tests, topic tests and full-length exam simulations. These are available to all enrolled students across all programs.</p></div>
-    </div>
-    <div class="accordion-item" data-aos="fade-up">
-      <div class="accordion-header"><h4>How do I enroll in a program?</h4><i class="fas fa-chevron-down accordion-icon"></i></div>
-      <div class="accordion-body"><p>You can visit us at Marutham Enclave, Hosur, call us at +91 8098-301-702, or fill out the contact form on our website. Our counsellors will guide you to the right program and learning mode based on your goals and schedule.</p></div>
+
+    <div style="text-align:center;margin-top:56px;">
+      <a href="contact.html" class="btn btn-ghost" style="font-size:.85rem;border-bottom:1px solid rgba(201,168,76,.4);padding:12px 0;letter-spacing:.1em;">
+        View All 26 Programs — Contact Us &nbsp;<i class="fas fa-arrow-right"></i>
+      </a>
     </div>
   </div>
 </section>
 
-<section class="cta-banner">
-  <h2>Find the Perfect Program for You</h2>
-  <p>Our counsellors will help you identify the right course and learning mode. Contact us today for a free consultation.</p>
-  <a href="contact.html" class="btn-dark"><i class="fas fa-phone"></i> &nbsp;Get Free Counselling</a>
+<!-- ════════════════════════════════════
+     FAQ
+     ════════════════════════════════════ -->
+<section class="section bg-surface" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div class="label">Common Questions</div>
+      <h2 class="section-title">Your Questions,<br><em class="text-gold italic">Answered</em></h2>
+    </div>
+    <div class="faq-wrap">
+      <div class="accordion">
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <h4>Who is eligible to enroll in the CA Foundation program?</h4>
+            <div class="accordion-icon">+</div>
+          </button>
+          <div class="accordion-body">
+            <p>Students who have completed Class 10 (SSC or equivalent) are eligible to register for the CA Foundation course with the Institute of Chartered Accountants of India (ICAI). You can join FA's CA Foundation program at any point — we guide you through both the ICAI registration process and the full preparation journey across all four papers.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <h4>Which learning mode is best for working professionals?</h4>
+            <div class="accordion-icon">+</div>
+          </button>
+          <div class="accordion-body">
+            <p>We recommend the Online Live, Recorded Videos, or Hybrid Mode for working professionals. These modes are specifically designed to accommodate demanding schedules — you can attend live sessions in the evenings, revisit recorded content at your convenience, or combine both approaches. Our Professional Development program is also structured with flexible timings for those already in employment.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <h4>Does FA provide its own study material?</h4>
+            <div class="accordion-icon">+</div>
+          </button>
+          <div class="accordion-body">
+            <p>Yes — FA operates its own publishing unit and produces all study material in-house. Our books, question banks, revision guides and practice papers are authored by our tutors, updated every semester, and specifically calibrated for exam success. This proprietary material is one of the key reasons FA students consistently outperform national averages. All enrolled students receive FA's material as part of their program package.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <h4>Are there mock tests and practice examinations?</h4>
+            <div class="accordion-icon">+</div>
+          </button>
+          <div class="accordion-body">
+            <p>Absolutely. FA conducts regular mock tests, chapter-end assessments and full-length practice examinations across all programs. Our 10,000+ question bank is systematically integrated into the curriculum so that students encounter a wide variety of question types and difficulty levels. Detailed performance analysis and tutor feedback are provided after every test to track progress and address weaknesses.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <h4>How do I enroll in an FA program?</h4>
+            <div class="accordion-icon">+</div>
+          </button>
+          <div class="accordion-body">
+            <p>You can enroll by visiting our campus at S-2 Marutham Enclave, Gandhi Nagar, HUDCO, Hosur, or by contacting us via phone (+91 8098-301-702), WhatsApp, or email (supportfa@fahosur.com). Our admissions team will guide you through choosing the right program and learning mode, discuss fees and batch timings, and complete the registration process. You can also fill in the enquiry form on our Contact page for a callback.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- ════════════════════════════════════
+     CTA
+     ════════════════════════════════════ -->
+<div style="padding:80px 0;">
+  <section class="cta-section">
+    <div class="container">
+      <div class="label" style="justify-content:center;margin-bottom:24px;">Ready to Begin?</div>
+      <h2 class="cta-title">Begin Your<br><em>Finance Journey</em><br>with FA Today.</h2>
+      <p class="cta-desc">Join 500+ students who have trusted FA – the Finance Academy for their path to a successful finance career, right here in Hosur.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-primary btn-magnetic">Enroll Now &nbsp;<i class="fas fa-arrow-right"></i></a>
+        <a href="contact.html" class="btn btn-outline">Call +91 8098-301-702</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Footer -->
 <footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="nav-logo"><div class="nav-logo-icon">FA</div><div><span style="color:#fff;font-size:1.1rem;font-weight:700;">Finance Academy</span><small style="color:#c9a84c;font-size:.65rem;">Hosur, Tamil Nadu</small></div></div>
-      <p>FA – the Finance Academy. 26 programs, 9 modes, 500+ students, 100+ winners.</p>
-      <div class="footer-social"><a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a><a href="#" class="social-btn"><i class="fab fa-instagram"></i></a><a href="#" class="social-btn"><i class="fab fa-youtube"></i></a><a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a></div>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="margin-bottom:0;">
+          <div class="nav-logo-mark">FA</div>Finance <span>Academy</span>
+        </a>
+        <p>F.A. – the Finance Academy. 26 programs, 9 modes, 500+ students, 100+ winners. Hosur's most trusted finance institution.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="footer-social"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="footer-social"><i class="fab fa-youtube"></i></a>
+          <a href="https://wa.me/918098301702" class="footer-social"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" class="footer-social"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Navigation</div>
+        <div class="footer-links">
+          <a href="index.html" class="footer-link">Home</a>
+          <a href="about.html" class="footer-link">We Are FA</a>
+          <a href="programs.html" class="footer-link">Programs</a>
+          <a href="store.html" class="footer-link">FA Store</a>
+          <a href="lounge.html" class="footer-link">Lounge</a>
+          <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Programs</div>
+        <div class="footer-links">
+          <a href="programs.html" class="footer-link">CA Foundation Paper 1</a>
+          <a href="programs.html" class="footer-link">CA Foundation Paper 2</a>
+          <a href="programs.html" class="footer-link">CA Foundation Paper 3</a>
+          <a href="programs.html" class="footer-link">CA Foundation Paper 4</a>
+          <a href="programs.html" class="footer-link">Professional Development</a>
+          <a href="programs.html" class="footer-link">Custom Coaching</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-links">
+          <a href="tel:+918098301702" class="footer-link">+91 8098-301-702</a>
+          <a href="tel:+918098301703" class="footer-link">+91 8098-301-703</a>
+          <a href="mailto:supportfa@fahosur.com" class="footer-link">supportfa@fahosur.com</a>
+          <span class="footer-link" style="cursor:default;line-height:1.7;">S-2 Marutham Enclave, 2nd Floor<br>Gandhi Nagar, HUDCO, Hosur – 635109</span>
+          <span class="footer-link" style="cursor:default;">Mon – Sat &nbsp;9:00am – 6:00pm</span>
+        </div>
+      </div>
     </div>
-    <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About FA</a></li><li><a href="programs.html">Programs</a></li><li><a href="store.html">Store</a></li><li><a href="lounge.html">Lounge</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-    <div class="footer-col"><h4>Programs</h4><ul><li><a href="#">CA Foundation Paper 1</a></li><li><a href="#">CA Foundation Paper 2</a></li><li><a href="#">CA Foundation Paper 3</a></li><li><a href="#">CA Foundation Paper 4</a></li><li><a href="#">Professional Dev.</a></li><li><a href="#">Custom Coaching</a></li></ul></div>
-    <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+918098301702"><i class="fas fa-phone fa-fw" style="color:#c9a84c;"></i> +91 8098-301-702</a></li><li><a href="mailto:supportfa@fahosur.com"><i class="fas fa-envelope fa-fw" style="color:#c9a84c;"></i> supportfa@fahosur.com</a></li><li><a href="#"><i class="fas fa-map-marker-alt fa-fw" style="color:#c9a84c;"></i> Hosur – 635109</a></li><li><a href="#"><i class="fas fa-clock fa-fw" style="color:#c9a84c;"></i> Mon–Sat 9am–6pm</a></li></ul></div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 FA – the Finance Academy. All rights reserved.</span>
+      <span>Hosur, Tamil Nadu &nbsp;·&nbsp; supportfa@fahosur.com</span>
+    </div>
   </div>
-  <div class="footer-bottom"><p>&copy; 2025 <span>FA – the Finance Academy</span>. All rights reserved.</p><p>S-2, Marutham Enclave, 2nd Floor, Hosur – 635109</p></div>
 </footer>
 
-<a href="https://wa.me/918098301702" target="_blank" class="float-whatsapp"><i class="fab fa-whatsapp"></i></a>
-<a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+<a href="#" id="back-to-top" title="Back to top"><i class="fas fa-arrow-up"></i></a>
+<a href="https://wa.me/918098301702" id="wa-float" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

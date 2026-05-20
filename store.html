@@ -3,206 +3,489 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FA Store | Finance Academy Hosur</title>
+  <title>FA Store | FA Finance Academy</title>
+  <meta name="description" content="Shop FA's premium study materials — CA Foundation guides, question banks, study kits and flashcards crafted by our expert tutors." />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 28px; max-width: 1280px; margin: 0 auto; }
-    .store-card { background: var(--white); border-radius: var(--radius); overflow: hidden; border: 1px solid #e5e7eb; transition: var(--trans); }
-    .store-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: transparent; }
-    .store-img { height: 200px; display: flex; align-items: center; justify-content: center; position: relative; }
-    .store-img.si1 { background: linear-gradient(135deg, #1a237e, #283593); }
-    .store-img.si2 { background: linear-gradient(135deg, #004d40, #00695c); }
-    .store-img.si3 { background: linear-gradient(135deg, #4a148c, #6a1b9a); }
-    .store-img.si4 { background: linear-gradient(135deg, #b71c1c, #c62828); }
-    .store-img.si5 { background: linear-gradient(135deg, #1565c0, #1976d2); }
-    .store-img.si6 { background: linear-gradient(135deg, #2e7d32, #388e3c); }
-    .store-img.si7 { background: linear-gradient(135deg, #e65100, #ef6c00); }
-    .store-img.si8 { background: linear-gradient(135deg, #6d4c41, #795548); }
-    .store-img i { font-size: 3.5rem; color: rgba(255,255,255,.35); }
-    .store-badge { position: absolute; top: 12px; right: 12px; background: var(--gold); color: var(--navy); font-size: .7rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; }
-    .store-badge.new { background: #10b981; color: white; }
-    .store-badge.bestseller { background: var(--gold); color: var(--navy); }
-    .store-body { padding: 22px; }
-    .store-body h3 { font-size: 1rem; color: var(--navy); margin-bottom: 6px; }
-    .store-body p { font-size: .83rem; color: var(--gray); line-height: 1.6; margin-bottom: 16px; }
-    .store-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid #f0f0f0; }
-    .store-price { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--navy); }
-    .store-price small { font-family: 'Inter', sans-serif; font-size: .75rem; color: var(--gray); font-weight: 400; text-decoration: line-through; margin-right: 4px; }
-    .add-cart { padding: 8px 18px; background: var(--navy); color: white; font-size: .82rem; font-weight: 600; border-radius: 50px; border: none; cursor: pointer; transition: var(--trans); display: flex; align-items: center; gap: 6px; }
-    .add-cart:hover { background: var(--gold); color: var(--navy); transform: translateY(-2px); }
-    .store-info-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; max-width: 900px; margin: 0 auto 60px; text-align: center; }
-    .sinfo-item { padding: 24px 16px; background: var(--white); border-radius: 14px; border: 1px solid #e5e7eb; }
-    .sinfo-item i { font-size: 1.5rem; color: var(--gold); margin-bottom: 10px; }
-    .sinfo-item h4 { font-size: .9rem; color: var(--navy); margin-bottom: 4px; }
-    .sinfo-item p { font-size: .78rem; color: var(--gray); }
-    @media (max-width: 768px) { .store-info-strip { grid-template-columns: repeat(2,1fr); } }
+    /* ── Page Hero ── */
+    .page-hero {
+      min-height: 380px;
+      display: flex;
+      align-items: flex-end;
+      padding: 140px 0 80px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 20% 50%, rgba(201,168,76,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero-label { margin-bottom: 16px; }
+    .page-hero-title {
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.0;
+      margin-bottom: 20px;
+    }
+    .page-hero-title em { color: var(--gold); font-style: italic; }
+    .page-hero-sub { font-size: 1rem; color: var(--muted); max-width: 500px; line-height: 1.75; }
+
+    /* ── Info Strip ── */
+    .info-strip-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .info-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.4s var(--ease-out-expo), background 0.3s;
+    }
+    .info-card:hover {
+      border-color: rgba(201,168,76,.25);
+      transform: translateY(-4px);
+      background: rgba(201,168,76,.04);
+    }
+    .info-icon {
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: block;
+    }
+    .info-card h4 {
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .info-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Products Grid ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    /* ── Product Card ── */
+    .product-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.45s var(--ease-out-expo), box-shadow 0.45s, border-color 0.3s;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lift);
+      border-color: rgba(201,168,76,.2);
+    }
+    .product-img {
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img i {
+      font-size: 4rem;
+      color: rgba(255,255,255,.18);
+      transition: transform 0.5s var(--ease-out-expo);
+    }
+    .product-card:hover .product-img i { transform: scale(1.15) rotate(-6deg); }
+    .product-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-family: var(--font-label);
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 4px 11px;
+      border-radius: 3px;
+      font-weight: 600;
+      z-index: 2;
+    }
+    .product-badge.gold { background: var(--gold); color: var(--bg); }
+    .product-badge.green { background: #22c55e; color: #052e16; }
+    .product-badge.teal { background: #0d9488; color: #f0fdfa; }
+    .product-body { padding: 24px; }
+    .product-name {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.2;
+      transition: color 0.3s;
+    }
+    .product-card:hover .product-name { color: var(--gold2); }
+    .product-desc {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+    .product-price {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .info-strip-grid { grid-template-columns: repeat(2, 1fr); }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .info-strip-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .products-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .info-strip-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-<div id="loader"><div class="loader-ring"></div></div>
 
-<nav class="navbar">
-  <a href="index.html" class="nav-logo"><div class="nav-logo-icon">FA</div><div><span>Finance Academy</span><small>Hosur, Tamil Nadu</small></div></a>
-  <ul class="nav-links">
-    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-    <li class="nav-item"><span class="nav-link" data-dropdown>We Are F.A <i class="fas fa-chevron-down"></i></span><div class="dropdown"><a href="about.html#history">History</a><a href="about.html#advisors">Council of Advisors</a><a href="about.html#tutors">Our Tutors</a><a href="about.html#stories">Good News Stories</a></div></li>
-    <li class="nav-item"><a href="programs.html" class="nav-link">Programs</a></li>
-    <li class="nav-item"><a href="store.html" class="nav-link active">Store</a></li>
-    <li class="nav-item"><span class="nav-link" data-dropdown>Lounge <i class="fas fa-chevron-down"></i></span><div class="dropdown"><a href="lounge.html#news">News &amp; Events</a><a href="lounge.html#wof">Wall of Fame</a><a href="lounge.html#articles">Articles</a></div></li>
-    <li class="nav-item"><a href="contact.html" class="nav-link nav-cta">Contact Us</a></li>
-  </ul>
-  <div class="hamburger"><span></span><span></span><span></span></div>
+<!-- Custom Cursor -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-logo">F · A</div>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- Navbar -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-mark">FA</div>
+    Finance <span>Academy</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="programs.html" class="nav-link">Programs</a>
+    <a href="store.html" class="nav-link active">Store</a>
+    <a href="lounge.html" class="nav-link">Lounge</a>
+  </div>
+  <div class="nav-cta">
+    <a href="contact.html" class="btn btn-outline">Enquire</a>
+    <a href="contact.html" class="btn btn-primary btn-magnetic">Enroll Now</a>
+  </div>
+  <button class="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<section class="page-hero">
-  <div class="page-hero-content">
-    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span>Store</div>
-    <h1>FA <span style="color:var(--gold2)">Store</span></h1>
-    <p>FA's own published study materials, question banks, revision guides and more — crafted exclusively for finance students.</p>
+<div id="nav-overlay">
+  <div class="nav-overlay-links">
+    <a href="index.html" class="nav-overlay-link">Home</a>
+    <a href="about.html" class="nav-overlay-link">About</a>
+    <a href="programs.html" class="nav-overlay-link">Programs</a>
+    <a href="store.html" class="nav-overlay-link">Store</a>
+    <a href="lounge.html" class="nav-overlay-link">Lounge</a>
+    <a href="contact.html" class="nav-overlay-link">Contact</a>
   </div>
-</section>
+</div>
 
-<!-- Info strip -->
-<section class="section" style="background:var(--light); padding:50px 5%;">
-  <div class="store-info-strip">
-    <div class="sinfo-item" data-aos="fade-up" data-aos-delay="0"><i class="fas fa-shipping-fast"></i><h4>Fast Delivery</h4><p>Delivered to your door across Hosur and surrounding areas</p></div>
-    <div class="sinfo-item" data-aos="fade-up" data-aos-delay="80"><i class="fas fa-sync-alt"></i><h4>Updated Content</h4><p>Study materials updated each semester to match the latest syllabus</p></div>
-    <div class="sinfo-item" data-aos="fade-up" data-aos-delay="160"><i class="fas fa-tags"></i><h4>Best Prices</h4><p>Competitively priced — no middlemen, direct from FA's publishing house</p></div>
-    <div class="sinfo-item" data-aos="fade-up" data-aos-delay="240"><i class="fas fa-headset"></i><h4>Support</h4><p>Queries about your materials? Our team is here Mon–Sat 9am–6pm</p></div>
+<!-- ════════════════════════════════════
+     PAGE HERO
+     ════════════════════════════════════ -->
+<header class="page-hero">
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="label page-hero-label">FA Store</div>
+    <h1 class="page-hero-title">Study Materials<br><em>Crafted to Win</em></h1>
+    <p class="page-hero-sub">FA's proprietary books, question banks and study kits — authored by our tutors, updated every semester, delivered to your door.</p>
   </div>
-</section>
+</header>
 
-<!-- Store Products -->
-<section class="section" style="background:var(--white);">
-  <div class="section-center">
-    <div class="section-tag">Study Materials</div>
-    <h2 class="section-title">FA Published Study Materials</h2>
-    <p class="section-subtitle">Every book, guide and question set is designed by FA's expert tutors for maximum exam relevance.</p>
-  </div>
-
-  <div class="courses-filter">
-    <button class="filter-btn active" data-filter="all">All Items</button>
-    <button class="filter-btn" data-filter="book">Books</button>
-    <button class="filter-btn" data-filter="qb">Question Banks</button>
-    <button class="filter-btn" data-filter="kit">Study Kits</button>
-  </div>
-
-  <div class="store-grid">
-    <div class="store-card" data-category="book" data-aos="fade-up" data-aos-delay="0">
-      <div class="store-img si1"><i class="fas fa-book"></i><span class="store-badge bestseller">Bestseller</span></div>
-      <div class="store-body">
-        <h3>CA Foundation Paper 1 – Accounting Guide</h3>
-        <p>FA's comprehensive Accounting study guide covering the complete Paper 1 syllabus with worked examples and exam tips.</p>
-        <div class="store-footer">
-          <div class="store-price"><small>₹450</small>₹350</div>
-          <button class="add-cart"><i class="fas fa-phone-alt"></i> Enquire</button>
-        </div>
+<!-- ════════════════════════════════════
+     INFO STRIP
+     ════════════════════════════════════ -->
+<section class="section" style="padding:48px 0;background:var(--bg);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="info-strip-grid">
+      <div class="info-card">
+        <i class="fas fa-shipping-fast info-icon"></i>
+        <h4>Fast Delivery</h4>
+        <p>All orders dispatched within 2 business days. Delivered across Tamil Nadu and beyond.</p>
       </div>
-    </div>
-    <div class="store-card" data-category="book" data-aos="fade-up" data-aos-delay="60">
-      <div class="store-img si2"><i class="fas fa-gavel"></i><span class="store-badge new">New</span></div>
-      <div class="store-body">
-        <h3>CA Foundation Paper 2 – Business Laws</h3>
-        <p>Crystal-clear explanations of business laws, concise case summaries and exam-focused notes for Paper 2.</p>
-        <div class="store-footer">
-          <div class="store-price"><small>₹400</small>₹320</div>
-          <button class="add-cart"><i class="fas fa-phone-alt"></i> Enquire</button>
-        </div>
+      <div class="info-card">
+        <i class="fas fa-sync-alt info-icon"></i>
+        <h4>Updated Content</h4>
+        <p>Every edition is updated to reflect the latest ICAI syllabus and exam pattern changes.</p>
       </div>
-    </div>
-    <div class="store-card" data-category="book" data-aos="fade-up" data-aos-delay="120">
-      <div class="store-img si3"><i class="fas fa-square-root-alt"></i><span class="store-badge bestseller">Bestseller</span></div>
-      <div class="store-body">
-        <h3>CA Foundation Paper 3 – Maths &amp; Stats</h3>
-        <p>Step-by-step solutions, logical reasoning tricks and statistics shortcuts for acing Paper 3.</p>
-        <div class="store-footer">
-          <div class="store-price"><small>₹420</small>₹340</div>
-          <button class="add-cart"><i class="fas fa-phone-alt"></i> Enquire</button>
-        </div>
+      <div class="info-card">
+        <i class="fas fa-tags info-icon"></i>
+        <h4>Best Prices</h4>
+        <p>Premium quality material at student-friendly prices — no inflated margins, no middlemen.</p>
       </div>
-    </div>
-    <div class="store-card" data-category="book" data-aos="fade-up" data-aos-delay="0">
-      <div class="store-img si4"><i class="fas fa-chart-line"></i></div>
-      <div class="store-body">
-        <h3>CA Foundation Paper 4 – Economics</h3>
-        <p>Business economics concepts explained simply with real-world examples and comprehensive commercial knowledge notes.</p>
-        <div class="store-footer">
-          <div class="store-price"><small>₹380</small>₹300</div>
-          <button class="add-cart"><i class="fas fa-phone-alt"></i> Enquire</button>
-        </div>
-      </div>
-    </div>
-    <div class="store-card" data-category="qb" data-aos="fade-up" data-aos-delay="60">
-      <div class="store-img si5"><i class="fas fa-question-circle"></i><span class="store-badge bestseller">Bestseller</span></div>
-      <div class="store-body">
-        <h3>CA Foundation – Full Question Bank Vol. 1</h3>
-        <p>2,500+ practice questions for Papers 1 &amp; 2 with detailed answer keys and difficulty ratings.</p>
-        <div class="store-footer">
-          <div class="store-price"><small>₹550</small>₹420</div>
-          <button class="add-cart"><i class="fas fa-phone-alt"></i> Enquire</button>
-        </div>
-      </div>
-    </div>
-    <div class="store-card" data-category="qb" data-aos="fade-up" data-aos-delay="120">
-      <div class="store-img si6"><i class="fas fa-clipboard-list"></i><span class="store-badge new">New</span></div>
-      <div class="store-body">
-        <h3>CA Foundation – Full Question Bank Vol. 2</h3>
-        <p>2,500+ practice questions for Papers 3 &amp; 4 with model answers and mock exam sequences.</p>
-        <div class="store-footer">
-          <div class="store-price"><small>₹550</small>₹420</div>
-          <button class="add-cart"><i class="fas fa-phone-alt"></i> Enquire</button>
-        </div>
-      </div>
-    </div>
-    <div class="store-card" data-category="kit" data-aos="fade-up" data-aos-delay="0">
-      <div class="store-img si7"><i class="fas fa-box-open"></i><span class="store-badge bestseller">Top Pick</span></div>
-      <div class="store-body">
-        <h3>CA Foundation Complete Study Kit</h3>
-        <p>All 4 books + 2 question bank volumes + revision flashcards in one comprehensive kit. Best value.</p>
-        <div class="store-footer">
-          <div class="store-price"><small>₹2,300</small>₹1,600</div>
-          <button class="add-cart"><i class="fas fa-phone-alt"></i> Enquire</button>
-        </div>
-      </div>
-    </div>
-    <div class="store-card" data-category="kit" data-aos="fade-up" data-aos-delay="60">
-      <div class="store-img si8"><i class="fas fa-bookmark"></i></div>
-      <div class="store-body">
-        <h3>Revision Flashcard Set – All Papers</h3>
-        <p>500 double-sided flashcards covering key formulas, definitions and concepts across all four CA Foundation papers.</p>
-        <div class="store-footer">
-          <div class="store-price"><small>₹350</small>₹260</div>
-          <button class="add-cart"><i class="fas fa-phone-alt"></i> Enquire</button>
-        </div>
+      <div class="info-card">
+        <i class="fas fa-headset info-icon"></i>
+        <h4>24/7 Support</h4>
+        <p>Our team is available via WhatsApp and email to assist with orders, queries and guidance.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta-banner">
-  <h2>Need Help Choosing the Right Materials?</h2>
-  <p>Call or visit us and our team will recommend exactly what you need for your specific program and exam date.</p>
-  <a href="contact.html" class="btn-dark"><i class="fas fa-phone"></i> &nbsp;Speak to Our Team</a>
+<!-- ════════════════════════════════════
+     PRODUCTS
+     ════════════════════════════════════ -->
+<section class="section bg-surface" id="products">
+  <div class="container">
+    <div class="section-header">
+      <div class="label">FA Publications</div>
+      <h2 class="section-title">Our Study<br><em class="text-gold italic">Materials</em></h2>
+      <p class="section-sub">Every book is written by FA tutors, for FA students — exam-focused, concise and built on a decade of teaching experience.</p>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="books">Books</button>
+      <button class="filter-btn" data-filter="qbank">Question Banks</button>
+      <button class="filter-btn" data-filter="kits">Study Kits</button>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Product 1 -->
+      <div class="product-card" data-category="books">
+        <div class="product-img" style="background:linear-gradient(135deg,#1a237e,#283593);">
+          <i class="fas fa-book"></i>
+          <span class="product-badge gold">Bestseller</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">CA Foundation Paper 1 Accounting Guide</div>
+          <p class="product-desc">FA's definitive accounting guide for Paper 1. Covers principles, journal entries, final accounts and more — with solved examples throughout.</p>
+          <div class="product-footer">
+            <span class="product-price">&#8377;350</span>
+            <a href="contact.html" class="btn btn-ghost">Enquire &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card" data-category="books">
+        <div class="product-img" style="background:linear-gradient(135deg,#004d40,#00695c);">
+          <i class="fas fa-gavel"></i>
+          <span class="product-badge green">New</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">CA Foundation Paper 2 Business Laws</div>
+          <p class="product-desc">Comprehensive coverage of business law, corporate regulations and correspondence. Updated for the latest ICAI syllabus with case-based examples.</p>
+          <div class="product-footer">
+            <span class="product-price">&#8377;320</span>
+            <a href="contact.html" class="btn btn-ghost">Enquire &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card" data-category="books">
+        <div class="product-img" style="background:linear-gradient(135deg,#4a148c,#6a1b9a);">
+          <i class="fas fa-square-root-alt"></i>
+          <span class="product-badge gold">Bestseller</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">CA Foundation Paper 3 Maths &amp; Stats</div>
+          <p class="product-desc">Step-by-step coverage of business mathematics, logical reasoning and statistics. Clear explanations, structured exercises and rapid revision sections.</p>
+          <div class="product-footer">
+            <span class="product-price">&#8377;340</span>
+            <a href="contact.html" class="btn btn-ghost">Enquire &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card" data-category="books">
+        <div class="product-img" style="background:linear-gradient(135deg,#b71c1c,#c62828);">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="product-body">
+          <div class="product-name">CA Foundation Paper 4 Economics</div>
+          <p class="product-desc">Business economics and commercial knowledge for Paper 4 — micro and macro concepts explained with real-world examples and exam-ready summaries.</p>
+          <div class="product-footer">
+            <span class="product-price">&#8377;300</span>
+            <a href="contact.html" class="btn btn-ghost">Enquire &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product-card" data-category="qbank">
+        <div class="product-img" style="background:linear-gradient(135deg,#1565c0,#1976d2);">
+          <i class="fas fa-question-circle"></i>
+          <span class="product-badge gold">Bestseller</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">Full Question Bank Vol. 1</div>
+          <p class="product-desc">Over 5,000 carefully curated questions covering Papers 1 and 2 — categorised by topic, difficulty and exam-relevance. The foundation of FA's winning record.</p>
+          <div class="product-footer">
+            <span class="product-price">&#8377;420</span>
+            <a href="contact.html" class="btn btn-ghost">Enquire &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="product-card" data-category="qbank">
+        <div class="product-img" style="background:linear-gradient(135deg,#2e7d32,#388e3c);">
+          <i class="fas fa-clipboard-list"></i>
+          <span class="product-badge green">New</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">Full Question Bank Vol. 2</div>
+          <p class="product-desc">5,000+ questions for Papers 3 and 4 — including past exam questions, practice problems and mock test sets. Updated for the current exam cycle.</p>
+          <div class="product-footer">
+            <span class="product-price">&#8377;420</span>
+            <a href="contact.html" class="btn btn-ghost">Enquire &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 7 -->
+      <div class="product-card" data-category="kits">
+        <div class="product-img" style="background:linear-gradient(135deg,#e65100,#ef6c00);">
+          <i class="fas fa-box-open"></i>
+          <span class="product-badge teal">Top Pick</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">CA Foundation Complete Study Kit</div>
+          <p class="product-desc">The complete FA package — all four paper guides, both question bank volumes and a revision planner in a single kit. Everything you need to clear CA Foundation.</p>
+          <div class="product-footer">
+            <span class="product-price">&#8377;1,600</span>
+            <a href="contact.html" class="btn btn-ghost">Enquire &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 8 -->
+      <div class="product-card" data-category="kits">
+        <div class="product-img" style="background:linear-gradient(135deg,#6d4c41,#795548);">
+          <i class="fas fa-bookmark"></i>
+        </div>
+        <div class="product-body">
+          <div class="product-name">Revision Flashcard Set</div>
+          <p class="product-desc">250 double-sided flashcards covering key definitions, formulae, legal provisions and economic concepts from all four CA Foundation papers.</p>
+          <div class="product-footer">
+            <span class="product-price">&#8377;260</span>
+            <a href="contact.html" class="btn btn-ghost">Enquire &nbsp;<i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
+<!-- ════════════════════════════════════
+     CTA
+     ════════════════════════════════════ -->
+<div style="padding:80px 0;">
+  <section class="cta-section">
+    <div class="container">
+      <div class="label" style="justify-content:center;margin-bottom:24px;">Order Today</div>
+      <h2 class="cta-title">Get Your FA<br><em>Study Materials</em><br>Delivered.</h2>
+      <p class="cta-desc">Contact us via WhatsApp or email to place your order. All materials dispatched within 2 business days — across Tamil Nadu and beyond.</p>
+      <div class="cta-actions">
+        <a href="https://wa.me/918098301702" class="btn btn-primary btn-magnetic" target="_blank">Order on WhatsApp &nbsp;<i class="fab fa-whatsapp"></i></a>
+        <a href="contact.html" class="btn btn-outline">Enquire Now</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Footer -->
 <footer>
-  <div class="footer-grid">
-    <div class="footer-brand"><div class="nav-logo"><div class="nav-logo-icon">FA</div><div><span style="color:#fff;font-size:1.1rem;font-weight:700;">Finance Academy</span><small style="color:#c9a84c;font-size:.65rem;">Hosur, Tamil Nadu</small></div></div><p>FA's own publishing house — study materials built for FA students, by FA tutors.</p><div class="footer-social"><a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a><a href="#" class="social-btn"><i class="fab fa-instagram"></i></a><a href="#" class="social-btn"><i class="fab fa-youtube"></i></a><a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a></div></div>
-    <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About FA</a></li><li><a href="programs.html">Programs</a></li><li><a href="store.html">Store</a></li><li><a href="lounge.html">Lounge</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-    <div class="footer-col"><h4>Store Categories</h4><ul><li><a href="#">Books</a></li><li><a href="#">Question Banks</a></li><li><a href="#">Study Kits</a></li><li><a href="#">Flashcards</a></li></ul></div>
-    <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+918098301702"><i class="fas fa-phone fa-fw" style="color:#c9a84c;"></i> +91 8098-301-702</a></li><li><a href="mailto:supportfa@fahosur.com"><i class="fas fa-envelope fa-fw" style="color:#c9a84c;"></i> supportfa@fahosur.com</a></li><li><a href="#"><i class="fas fa-map-marker-alt fa-fw" style="color:#c9a84c;"></i> Hosur – 635109</a></li></ul></div>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="margin-bottom:0;">
+          <div class="nav-logo-mark">FA</div>Finance <span>Academy</span>
+        </a>
+        <p>F.A. – the Finance Academy. 26 programs, 9 modes, 500+ students, 100+ winners. Hosur's most trusted finance institution.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="footer-social"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="footer-social"><i class="fab fa-youtube"></i></a>
+          <a href="https://wa.me/918098301702" class="footer-social"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" class="footer-social"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Navigation</div>
+        <div class="footer-links">
+          <a href="index.html" class="footer-link">Home</a>
+          <a href="about.html" class="footer-link">We Are FA</a>
+          <a href="programs.html" class="footer-link">Programs</a>
+          <a href="store.html" class="footer-link">FA Store</a>
+          <a href="lounge.html" class="footer-link">Lounge</a>
+          <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Programs</div>
+        <div class="footer-links">
+          <a href="programs.html" class="footer-link">CA Foundation Paper 1</a>
+          <a href="programs.html" class="footer-link">CA Foundation Paper 2</a>
+          <a href="programs.html" class="footer-link">CA Foundation Paper 3</a>
+          <a href="programs.html" class="footer-link">CA Foundation Paper 4</a>
+          <a href="programs.html" class="footer-link">Professional Development</a>
+          <a href="programs.html" class="footer-link">Custom Coaching</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-links">
+          <a href="tel:+918098301702" class="footer-link">+91 8098-301-702</a>
+          <a href="tel:+918098301703" class="footer-link">+91 8098-301-703</a>
+          <a href="mailto:supportfa@fahosur.com" class="footer-link">supportfa@fahosur.com</a>
+          <span class="footer-link" style="cursor:default;line-height:1.7;">S-2 Marutham Enclave, 2nd Floor<br>Gandhi Nagar, HUDCO, Hosur – 635109</span>
+          <span class="footer-link" style="cursor:default;">Mon – Sat &nbsp;9:00am – 6:00pm</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 FA – the Finance Academy. All rights reserved.</span>
+      <span>Hosur, Tamil Nadu &nbsp;·&nbsp; supportfa@fahosur.com</span>
+    </div>
   </div>
-  <div class="footer-bottom"><p>&copy; 2025 <span>FA – the Finance Academy</span>. All rights reserved.</p><p>S-2, Marutham Enclave, 2nd Floor, Hosur – 635109</p></div>
 </footer>
 
-<a href="https://wa.me/918098301702" target="_blank" class="float-whatsapp"><i class="fab fa-whatsapp"></i></a>
-<a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+<a href="#" id="back-to-top" title="Back to top"><i class="fas fa-arrow-up"></i></a>
+<a href="https://wa.me/918098301702" id="wa-float" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
